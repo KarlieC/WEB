@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Websits List</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-4 p-0">
+      <nav class="navbar navbar-expand-lg bg-primary justify-content-start mb-3 p-0">
+        <a class="cl-text-white nav-item nav-link" href="website-list.html">
+          <i class="fas fa-chevron-left fontawsome_icon"></i>
+        </a>
+
+        <a class="cl-text-white navbar-brand" href="#">
+          Websites
+        </a>
+        <a href="#" class="cl-text-white nav-item nav-link ml-auto">
+          <i class="fas fa-plus fontawsome_icon"></i>
+        </a>
+      </nav>
+    </div>
+
+    <div class="col-8 p-0">
+      <nav class="navbar navbar-expand-lg bg-primary justify-content-start mb-3 p-0">
+        <a class="cl-text-white navbar-brand" href="#">
+          Edit Websites
+        </a>
+        <a href="website-list.html" class="navbar-link navbar-text cl-text-white cl-icon-padding ml-auto">
+          <i class="fas fa-check fontawsome_icon"></i>
+        </a>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+<div class="contain-fluid">
+  <div class="row">
+    <div class="col-4">
+      <ul class="list-group cl-list-group-borderless">
+        <li class="list-group-item cl-list-item-borderless">
+          <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a href="page-list.html">Blogging App</a>
+        </li>
+        <li class="list-group-item cl-list-item-borderless">
+          <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a href="page-list.html">Address Book App</a>
+        </li>
+        <li class="list-group-item cl-list-item-borderless">
+          <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a href="page-list.html">Script Testing App</a>
+        </li>
+        <li class="list-group-item cl-list-item-borderless">
+          <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a href="page-list.html">Blogger</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-8">
+      <form>
+        <div class="form-group">
+          <label for="website-name">Website Name</label>
+          <input type="text" class="form-control" id="website-name" placeholder="Blogger">
+        </div>
+        <div class="form-group">
+          <label for="website-description">Website Description</label>
+          <textarea id="website-description" class="form-control" rows="5"
+                    placeholder="Blog is a blog-publishing service."></textarea>
+        </div>
+        <a class="btn btn-danger  btn-block" href="website-list.html">Delete</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar fixed-bottom bg-primary justify-content-end p-0">
+  <div class="container-fuild">
+    <a href="profile.html" class="navbar-link navbar-text cl-text-white cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>
+</body>
+</html>
