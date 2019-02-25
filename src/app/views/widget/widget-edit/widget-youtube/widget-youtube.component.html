@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Widgets Edit
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" (click)="updateWidget()">
+    <i class="fas fa-check fontawsome_icon"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="youtubename">Name</label>
+      <input name="youtubename"
+             type="text"
+             class="form-control"
+             id = 'youtubename'
+             [ngModel]="placeholderName()"
+             ngModel
+             #youtubename="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="youtubetext">Text</label>
+      <input name="youtubetext"
+             type="text"
+             class="form-control"
+             id = 'youtubetext'
+             [ngModel]="placeholderText()"
+             ngModel
+             #youtubetext="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="youtubeurl">URL</label>
+      <input name="youtubeurl"
+             type="text"
+             class="form-control"
+             id = 'youtubeurl'
+             [ngModel]="placeholderUrl()"
+             ngModel
+             #youtubeurl="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="youtubewidth">Width</label>
+      <input name="youtubewidth"
+             type="text"
+             class="form-control"
+             id = 'youtubewidth'
+             [ngModel]="placeholderWidth()"
+             ngModel
+             #youtubewidth="ngModel">
+    </div>
+  </form>
+  <a class="btn btn-danger btn-block" href="widget-list.html">Delete</a>
+</div>
+
+<nav class="navbar fixed-bottom bg-light justify-content-end p-0">
+  <div class="container-fuild">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>

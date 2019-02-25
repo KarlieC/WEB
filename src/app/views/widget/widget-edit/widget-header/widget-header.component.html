@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Widgets Edit
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" (click)="updateWidget()">
+    <i class="fas fa-check fontawsome_icon"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="headingname">Name</label>
+      <input name="headingname"
+             type="text"
+             class="form-control"
+             id = 'headingname'
+             [ngModel]="placeholderName()"
+             ngModel
+             #headingname="ngModel">
+    </div>
+
+    <div class="form-group">
+      <label for="headingtext">Text</label>
+      <input name="headingtext"
+             type="text"
+             class="form-control"
+             id = 'headingtext'
+             [ngModel]="placeholderText()"
+             ngModel
+             #headingtext="ngModel">
+    </div>
+
+    <div class="form-group">
+      <label for="headingsize">Size</label>
+      <input name="headingsize"
+             type="text"
+             class="form-control"
+             id = 'headingsize'
+             [ngModel]="placeholderSize()"
+             ngModel
+             #headingsize="ngModel">
+    </div>
+  </form>
+
+  <a class="btn btn-danger  btn-block" href="widget-list.html">Delete</a>
+</div>
+
+<nav class="navbar fixed-bottom bg-light justify-content-end p-0">
+  <div class="container-fuild">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>

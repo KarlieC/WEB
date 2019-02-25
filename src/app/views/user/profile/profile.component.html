@@ -1,0 +1,76 @@
+<nav class="navbar navbar-dark navbar-fixed-top bg-primary p-0">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      Profile
+    </a>
+    <!--<a class="navbar-brand font-weight-bold" routerLink="">-->
+    <!--Profile-->
+    <!--</a>-->
+    <a (click)="updateUser()" class="btn-primary navbar-text cl-text-white float-right">
+      <!--<a href="#" class="navbar-text pull-right navbar-link cl-text-white cl-icon-padding">-->
+      <span class="fas fa-check fontawsome_icon"></span>
+    </a>
+  </div>
+</nav>
+
+<!--<h2> user: {{user.username}} </h2>-->
+
+<div class="container-fluid pt-5">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="username" class="font-weight-bold">Username</label>
+      <input name='username'
+             type="text"
+             class="form-control"
+             id="username"
+             placeholder="{{user.username}}"
+             ngModel
+             #username="ngModel">
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="font-weight-bold">Email</label>
+      <input id="email" type="email" class="form-control" value="{{user.email}}">
+    </div>
+
+    <div class="form-group">
+      <label for="firstname" class="font-weight-bold">First Name</label>
+      <input name='firstname'
+             type="text"
+             class="form-control"
+             id="firstname"
+             placeholder="{{user.firstName}}"
+             ngModel
+             #firstname="ngModel">
+    </div>
+
+    <div class="form-group">
+      <label for="lastname" class="font-weight-bold">Last Name</label>
+      <input name='lastname'
+             type="text"
+             class="form-control"
+             id="lastname"
+             placeholder="{{user.lastName}}"
+             ngModel
+             #lastname="ngModel">
+    </div>
+  </form>
+
+  <div class="form-group">
+    <button class="btn btn-primary btn-block" routerLink="/user/{{user._id}}/website">Websites</button>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-danger btn-block" routerLink="/login">Logout</button>
+  </div>
+
+
+</div>
+
+
+<nav class="navbar fixed-bottom bg-primary justify-content-end p-0">
+  <!--<div class="container-fuild">-->
+  <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-white cl-icon-padding ml-auto">
+    <i class="fas fa-user fontawsome_icon"></i>
+  </a>
+  <!--</div>-->
+</nav>

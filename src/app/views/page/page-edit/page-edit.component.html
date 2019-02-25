@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Edit Page
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" (click)="editPage()">
+    <i class="fas fa-check fontawsome_icon"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="pagename">Name</label>
+      <input id="pagename"
+             name="pageName"
+             type="text"
+             class="form-control"
+             placeholder="Page Name"
+             [ngModel]="placeholderName()"
+             ngModel
+             #pageName="ngModel">
+    </div>
+
+    <div class="form-group">
+      <label for="pagetitle">Title</label>
+      <input id="pagetitle"
+             name="pageTitle"
+             type="text"
+             class="form-control"
+             placeholder="Page Title"
+             [ngModel]="placeholderTitle()"
+             ngModel
+             #pageTitle="ngModel">
+
+    </div>
+  </form>
+  <a class="btn btn-danger  btn-block" (click)="deletePage()">Delete</a>
+</div>
+
+<nav class="navbar fixed-bottom bg-light justify-content-end p-0">
+  <div class="container-fuild">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>

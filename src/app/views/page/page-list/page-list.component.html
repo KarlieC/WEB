@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Pages
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" routerLink="./new">
+    <i class="fas fa-plus"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <ul class="list-group cl-list-group-borderless">
+    <li class="list-group-item cl-list-item-borderless" *ngFor="let page of pages">
+      <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}/widget">{{page.name}}</a>
+      <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{page._id}}">
+        <i class="fas fa-cog fontawsome_icon float-right"></i></a>
+    </li>
+  </ul>
+  <!--<ul class="list-group cl-list-group-borderless">-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a [routerLink]="['/page-edit']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a [routerLink]="['/widget-list']">Blog Post</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a [routerLink]="['/page-edit']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a [routerLink]="['/widget-list']">Blogs</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a [routerLink]="['/page-edit']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a [routerLink]="['/widget-list']">Home</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a [routerLink]="['/page-edit']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a [routerLink]="['/widget-list']">About</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a [routerLink]="['/page-edit']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a [routerLink]="['/widget-list']">Contact Us</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+</div>
+
+<nav class="navbar fixed-bottom bg-light justify-content-end p-0">
+  <div class="container-fuild">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>

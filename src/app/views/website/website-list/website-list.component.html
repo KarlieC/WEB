@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-primary justify-content-start mb-3 p-0">
+  <a class="cl-text-white nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-white navbar-brand" routerLink="./">
+    Websites
+  </a>
+  <a class="navbar-link navbar-text cl-text-white cl-icon-padding ml-auto" routerLink="./new">
+    <i class="fas fa-plus"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <ul class="list-group cl-list-group-borderless">
+    <li class="list-group-item cl-list-item-borderless" *ngFor="let website of websites">
+      <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
+      <a routerLink="/user/{{userId}}/website/{{website._id}}">
+        <i class="fas fa-cog fontawsome_icon float-right"></i></a>
+    </li>
+  </ul>
+  <!--<ul class="list-group cl-list-group-borderless">-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a href="page-list.html">Address Book App</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a href="page-list.html">Blogger</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a href="page-list.html">Blogging App</a>-->
+    <!--</li>-->
+    <!--<li class="list-group-item cl-list-item-borderless">-->
+      <!--<a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>-->
+      <!--<a href="page-list.html">Script Testing App</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+</div>
+
+<nav class="navbar fixed-bottom bg-primary justify-content-end p-0">
+  <div class="container-fuild">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-white cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>
+
+

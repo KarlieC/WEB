@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Choose Widget
+  </a>
+</nav>
+
+<div class="container-fluid">
+  <ul class="list-group cl-list-group-borderless">
+    <li class="list-group-item cl-list-item-borderless">
+      <a (click)="createWidgetHeading()">Header</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Label</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">HTML</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Text Input</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Link</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Button</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]" (click)="createWidgetImage()">Image</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]" (click)="createWidgetYoutube()">YouTube</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Data Table</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['../', widgetId]">Repeater</a>
+    </li>
+  </ul>
+
+  <!--<ul class="list-group" *ngFor="let type of widgetTypes">-->
+  <!--<li class="list-group-item border-0">-->
+  <!--<a [routerLink]="['../', widgetId]" class="text-blue" (click)="onNewWidget(type)">{{ type }}</a>-->
+  <!--</li>-->
+  <!--</ul>-->
+
+</div>
+
+<nav class="navbar fixed-bottom bg-light justify-content-end p-0">
+  <div class="container-fluid row">
+    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+      <i class="fas fa-user fontawsome_icon"></i>
+    </a>
+  </div>
+</nav>
