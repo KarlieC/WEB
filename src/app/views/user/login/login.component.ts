@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   errorMsg = 'Invalid username or password !';
 
   constructor(private userService: UserService, private router: Router) {
-    this.username = 'hello world!';
+    this.username = 'hello world!' ;
   }
 
   login() {
