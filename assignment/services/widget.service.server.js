@@ -30,9 +30,16 @@ module.exports = function (app, models) {
   ];
 
   function createWidget(req, res) {
+    var pageId = req.params.pageId;
     var widget = req.body;
-    widget._id = Math.random().toString();
-    ;
+    for (var i = 0; i < widgets.length; i++) {
+      if (widgets[i].pageId === pageId && widgets[i].name === widget.name
+        && widgets[i].widgetType === widget.widgetType && widgets[i]._id === widget._id) {
+        res.status(404).send("This page has already existed.");
+        return;
+      }
+    }
+    widget._id = Math.round(Math.random() * 1000).toString();
     widgets.push(widget);
     res.json(widget);
   }

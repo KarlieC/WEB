@@ -14,7 +14,7 @@ export class WidgetChooserComponent implements OnInit {
   websiteId: string;
   pageId: string;
   widgetId: String;
-
+  widget: Widget;
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -29,35 +29,39 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   createWidgetHeading() {
-    const widget = new Widget('', '', 'HEADING', this.pageId, 0, 'text', '100%', 'url');
-    this.widgetService.createWidget(this.pageId, widget).subscribe(
-      (newWidget: Widget) => {
-        console.log('newWidget');
+    console.log('creating heading');
+    this.widget = new Widget('', '', 'HEADING', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+      (data: any) => {
+        console.log('newWidget ' + data);
+        this.widget = data;
         const url = '/user/' + this.userId + '/website/' + this.websiteId
-          + '/page/' + this.pageId + '/widget/' + widget._id;
+          + '/page/' + this.pageId + '/widget/' + this.widget._id;
         this.router.navigateByUrl(url);
       }
     );
   }
 
   createWidgetImage() {
-    const widget = new Widget('', '', 'IMAGE', this.pageId, 0, 'text', '100%', 'url');
-    this.widgetService.createWidget(this.pageId, widget).subscribe(
-      (newWidget: Widget) => {
-        console.log(newWidget);
+    this.widget = new Widget('', '', 'IMAGE', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+      (data: any) => {
+        this.widget = data;
+        console.log('image new ' + this.widget);
         const url = '/user/' + this.userId + '/website/' + this.websiteId
-          + '/page/' + this.pageId + '/widget/' + widget._id;
+          + '/page/' + this.pageId + '/widget/' + this.widget._id;
         this.router.navigateByUrl(url);
       }
     );
   }
   createWidgetYoutube() {
-    const widget = new Widget('', '', 'YOUTUBE', this.pageId, 0, 'text', '100%', 'url');
-    this.widgetService.createWidget(this.pageId, widget).subscribe(
-      (newWidget: Widget) => {
-        console.log(newWidget);
+    this.widget = new Widget('', '', 'YOUTUBE', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, this.widget).subscribe(
+      (data: any) => {
+        this.widget = data;
+        console.log('youtube new ' + this.widget);
         const url = '/user/' + this.userId + '/website/' + this.websiteId
-          + '/page/' + this.pageId + '/widget/' + widget._id;
+          + '/page/' + this.pageId + '/widget/' + this.widget._id;
         this.router.navigateByUrl(url);
       }
     );

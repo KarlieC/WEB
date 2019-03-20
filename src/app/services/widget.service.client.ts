@@ -13,7 +13,7 @@ export class WidgetService {
   baseUrl = environment.baseUrl;
 
   createWidget(pageId, widget) {
-    return this._http.post<Widget>(this.baseUrl + '/api/page/' + pageId + '/widget', widget);
+    return this._http.post(this.baseUrl + '/api/page/' + pageId + '/widget', widget);
     // widget._id = (Number(this.widgets[this.widgets.length - 1]._id) + 1).toString();
     // this.widgets.push(widget);
     // return widget._id;
