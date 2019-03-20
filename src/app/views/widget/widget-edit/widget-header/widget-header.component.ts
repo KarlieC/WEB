@@ -15,7 +15,16 @@ export class WidgetHeaderComponent implements OnInit {
   websiteId: String;
   pageId: String;
   widgetId: String;
-  curWidget: Widget;
+  curWidget = {
+    _id: '',
+    widgetType: '',
+    pageId: '',
+    size: 0,
+    url: '',
+    width: '',
+    text: '',
+    name: ''
+  };
   updatedWidget: Widget;
   newName: string;
   newText: string;
@@ -32,15 +41,11 @@ export class WidgetHeaderComponent implements OnInit {
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
     });
-    this.curWidget = this.widgetService.findWidgetById(this.widgetId);
-    // const widget: Widget = this.widgetService.findWidgetById(this.widgetId);
-    // if (widget) {
-    //   this.text = widget.text;
-    //   this.size = widget.size;
-    //   this.isNewWidget = false;
-    // } else {
-    //   this.isNewWidget = true;
-    // }
+    this.widgetService.findWidgetById(this.widgetId).subscribe((data: any) => {
+      this.curWidget = data;
+      console.log('curWidge');
+      console.log(data);
+    });
   }
 
   placeholderName() {
@@ -56,11 +61,39 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget() {
-    this.newName = this.widgetForm.value.headingname;
-    this.newText = this.widgetForm.value.headingtext;
-    this.newSize = this.widgetForm.value.headingsize;
-    this.updatedWidget = new Widget(this.widgetId, 'HEADER', this.pageId
-      , this.newSize, this.newText, '100%', 'url');
-    this.widgetService.updateWidget(this.widgetId, this.updatedWidget);
+    if (this.widgetForm.value.headingname) {
+      this.curWidget.name = this.widgetForm.value.headingname;
+    }
+    if (this.widgetForm.value.headingtext) {
+      this.curWidget.text = this.widgetForm.value.headingtext;
+    }
+    if (this.widgetForm.value.headingsize) {
+      this.curWidget.size = this.widgetForm.value.headingsize;
+    }
+    this.widgetService.updateWidget(this.widgetId, this.curWidget).subscribe(
+      (data: any) => {
+        console.log('updated name ' + this.curWidget.name);
+        // this.curWidget = data;
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+        this.router.navigateByUrl(url);
+        alert('update succeed');
+      }, (error: any) => {
+        alert ('update error');
+      }
+    );
+  }
+  deleteWidget() {
+    this.widgetService.deleteWidget(this.widgetId).subscribe(
+      (data: any) => {
+        // this.pages = data;
+        // console.log(this.pages);
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+        this.router.navigateByUrl(url);
+      }
+    );
+    // this.widgetService.deleteWidget(this.userId, this.websiteId, this.pageId).subscribe(website => {
+    //   const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + 'widget';
+    //   this.router.navigateByUrl(url);
+    // });
   }
 }

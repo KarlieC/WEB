@@ -19,10 +19,14 @@ export class PageListComponent implements OnInit {
   constructor(private router: Router, private pageService: PageService, private activatedRoute: ActivatedRoute) {  }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params: any) => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
+
     });
-    this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+    this.pageService.findPageByWebsiteId(this.websiteId)
+      .subscribe(data => {
+        this.pages = data;
+      });
   }
 }

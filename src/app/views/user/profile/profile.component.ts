@@ -1,10 +1,11 @@
-import {Component, OnInit, Input, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {UserService} from '../../../services/user.service.client';
 import {User} from '../../../models/user.model.client';
 
 import {NgForm} from '@angular/forms';
+// import {SharedService} from '../../../services/shared.service';
 
 
 @Component({
@@ -16,26 +17,68 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('f') profileForm: NgForm;
 
-  user: User;
+  user = {
+    _id: '',
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+  };
   userId: String;
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
+  // newUsername: String;
+  // newFirstname: String;
+  // newLastname: String;
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: any) => {
-          this.userId = params['uid'];
-        }
-      );
-    this.user = this.userService.findUserById(this.userId);
+    this.activatedRoute.params.subscribe(params => {
+      this.userId = params['uid'];
+      console.log('user id: ' + this.userId);
+      this.userService.findUserById(this.userId.toString())
+        .subscribe((data: any) => {
+          console.log(data);
+          this.user = data;
+        });
+    });
   }
 
   updateUser() {
-    console.log(this.profileForm.value.lastname);
-    const updatedUser = new User(this.userId
-      , this.profileForm.value.username
-      , this.user.password
-      , this.profileForm.value.firstname
-      , this.profileForm.value.lastname);
-    this.user = this.userService.updateUser(this.userId, updatedUser);
-    // console.log(this.user.lastName);
+    if (this.profileForm.value.username) {
+      this.user.username = this.profileForm.value.username;
+    }
+    if (this.profileForm.value.firstname) {
+      this.user.firstName = this.profileForm.value.firstname;
+    }
+    if (this.profileForm.value.lastname) {
+      this.user.lastName = this.profileForm.value.lastname;
+    }
+    if (this.profileForm.value.lastname) {
+      this.user.lastName = this.profileForm.value.lastname;
+    }
+    this.activatedRoute.params.subscribe(params => {
+      this.userService.updateUser(this.user).subscribe(
+        (user: User) => {
+          this.user = user;
+          alert('update succeed!');
+        }
+      );
+    }, (error: any) => {
+        alert('update failed!');
+      }
+    );
   }
+
+  // updateUser() {
+  //   this.activatedRoute.params.subscribe(params => {
+  //     this.user._id = params['uid'];
+  //   });
+  //
+  //   this.userService.findUserById(this.user._id.toString())
+  //     .subscribe((data: any) => {
+  //       this.user = data;
+  //       // console.log(data);
+  //     });
+  // }
 }

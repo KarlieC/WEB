@@ -13,9 +13,14 @@ export class PageEditComponent implements OnInit {
   userId: String;
   websiteId: String;
   pageId: String;
-  curPage: Page;
-  name: String;
-  title: String;
+  curPage = {
+    _id: '',
+    name: '',
+    websiteId: '',
+    title: ''
+  };
+  // name: String;
+  // title: String;
   pages: Page[];
   @ViewChild('f') pageForm: NgForm;
 
@@ -27,25 +32,45 @@ export class PageEditComponent implements OnInit {
       this.websiteId = params['wid'];
       this.pageId = params['pid'];
     });
-    this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
-    this.curPage = this.pageService.findPageById(this.pageId);
-    this.name = this.curPage.name;
-    this.title = this.curPage.title;
+    this.pageService.findPageById(this.pageId)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.curPage = data;
+      });
+    // this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+    // this.name = this.curPage.name;
+    // this.title = this.curPage.title;
   }
 
   editPage() {
-    const updatedPage = new Page(undefined
-      , this.pageForm.value.pageName
-      , this.websiteId
-      , this.pageForm.value.pageTitle);
-    this.pageService.updatePage(this.pageId, updatedPage);
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
-
+    if (this.pageForm.value.pageName) {
+      this.curPage.name = this.pageForm.value.pageName;
+    }
+    if (this.pageForm.value.pageTitle) {
+      this.curPage.title = this.pageForm.value.pageTitle;
+    }
+    this.pageService.updatePage(this.pageId, this.curPage).subscribe(
+      (data: any ) => {
+        console.log('updated name ' + this.curPage.name);
+        console.log(data);
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId;
+        this.router.navigateByUrl(url);
+        alert('update success!');
+      }, (error: any) => {
+        alert ('update error');
+      }
+    );
   }
 
   deletePage() {
-    this.pageService.deletePage(this.pageId);
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
+    this.pageService.deletePage(this.pageId).subscribe(
+      (data: any) => {
+        this.pages = data;
+        console.log(this.pages);
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page';
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 
   placeholderName() {

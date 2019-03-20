@@ -66,24 +66,24 @@
       <form #f="ngForm">
         <div class="form-group">
           <label for="name">Website Name</label>
-          <input name="newName"
+          <input name="name"
                  type="text"
                  class="form-control"
                  id="name"
                  [ngModel]="placeholderName()"
                  ngModel
-                 #newName="ngModel">
+                 #name="ngModel">
         </div>
 
         <div class="form-group">
           <label for="description">Website Description</label>
-          <textarea name="newDescription"
+          <textarea name="description"
                     class="form-control"
                     id="description"
                     rows="5"
                     [ngModel]="placeholderDescription()"
                     ngModel
-                    #newDescription="ngModel"></textarea>
+                    #description="ngModel"></textarea>
         </div>
 
         <a (click)="deleteWebsite()" class="btn btn-danger  btn-block">Delete</a>

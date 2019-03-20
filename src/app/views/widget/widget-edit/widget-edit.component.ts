@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Widget} from '../../../models/widget.model.client';
 import {WidgetService} from '../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,20 +11,30 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class WidgetEditComponent implements OnInit {
   pageId: String;
   widgetId: String;
-  widget: Widget;
+  widget = {
+    _id: '',
+    widgetType: '',
+    pageId: '',
+    size: 0,
+    url: '',
+    width: '',
+    text: '',
+    name: ''
+  };
   widgets: Widget[];
-  constructor(private widgetService: WidgetService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+
+  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-          this.widgetId = params['wgid'];
-          this.pageId = params['pid'];
-          this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
-          this.widget = this.widgetService.findWidgetById(this.widgetId);
-          // console.log(this.widget.widgetType);
-        }
-      );
+        this.widgetId = params['wgid'];
+        this.pageId = params['pid'];
+        this.widgetService.findWidgetById(this.widgetId).subscribe((data: any) => {
+          this.widget = data;
+          console.log(this.widget);
+        });
+      }
+    );
   }
 }

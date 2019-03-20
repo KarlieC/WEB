@@ -13,38 +13,63 @@ import {NgForm} from '@angular/forms';
 export class WebsiteEditComponent implements OnInit {
 
   userId: String;
-  curWebsite: Website;
+  curWebsite = {
+    _id: '',
+    name: '',
+    developerId: '',
+    description: ''
+  };
   websiteId: String;
-  name: String;
-  description: String;
+  // name: String;
+  // description: String;
   websites: Website[];
   @ViewChild('f') websiteForm: NgForm;
 
-  constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
     });
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
-    this.curWebsite = this.websiteService.findWebsiteById(this.websiteId);
-    this.name = this.curWebsite.name;
-    this.description = this.curWebsite.description;
+    this.websiteService.findAllWebsiteForUser(this.userId).subscribe(
+      (data: any) => {
+        console.log(data[0]);
+        console.log(data[1]);
+        this.websites = data;
+      });
+    console.log('website id ' + this.websiteId);
+    this.websiteService.findWebsiteById(this.userId.toString(), this.websiteId.toString()).subscribe(
+      (data: any) => {
+        console.log('find curweb');
+        console.log(data);
+        this.curWebsite = data;
+      });
+
   }
+
 
   updateWebsite() {
-    const updatedWebsite = new Website(this.websiteId
-      , this.websiteForm.value.newName
-      , this.userId
-      , this.websiteForm.value.newDescription);
-    this.websiteService.updateWebsite(this.websiteId, updatedWebsite);
-    this.router.navigate(['user/' + this.userId + '/website']);
+    if (this.websiteForm.value.name) {
+      this.curWebsite.name = this.websiteForm.value.name;
+    }
+    if (this.websiteForm.value.description) {
+      this.curWebsite.description = this.websiteForm.value.description;
+    }
+    this.websiteService.updateWebsite(this.userId, this.websiteId, this.curWebsite).subscribe((data: any) => {
+      console.log('updated name ' + this.curWebsite.name);
+      alert('update succeed!');
+      this.router.navigateByUrl('/user/' + this.userId + '/website');
+      // this.router.navigate(['/usr/' + this.userId + '/website']);
+    });
   }
 
+
   deleteWebsite() {
-    this.websiteService.deleteWebsite(this.websiteId);
-    this.router.navigate(['user/' + this.userId + '/website']);
+    this.websiteService.deleteWebsite(this.userId, this.websiteId).subscribe(website => {
+      this.router.navigateByUrl('/user/' + this.userId + '/website');
+    });
   }
 
   placeholderName() {

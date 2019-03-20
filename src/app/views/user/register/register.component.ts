@@ -32,17 +32,39 @@ export class RegisterComponent implements OnInit {
     this.username = this.registerForm.value.username;
     this.password = this.registerForm.value.password;
     this.v_password = this.registerForm.value.v_password;
-    if (this.userService.findUserByUsername(this.username)) {
-      this.errorFlagUsername = true;
-    } else if (this.v_password !== this.password) {
+    // if (this.userService.findUserByUsername(this.username)) {
+    //   this.errorFlagUsername = true;
+    // } else if (this.v_password !== this.password) {
+    //   this.errorFlagPassword = true;
+    // } else {
+    //   const user: User = new User('', this.username, this.password, '', '');
+    //   this.userService.createUser(user);
+    //   this.router.navigate(['/user', user._id]);
+    // }
+    if (this.v_password !== this.password) {
       this.errorFlagPassword = true;
-    } else {
-      const user: User = new User('', this.username, this.password, '', '');
-      this.userService.createUser(user);
-      this.router.navigate(['/user', user._id]);
+      return;
     }
+    this.userService.findUserByUsername(this.username).subscribe(
+      (user: User) => {
+        if (user) {
+          console.log('test user exist');
+          this.errorFlagUsername = true;
+        }
+      },
+      (error: any) => {
+        const newUser: User = new User('', this.username, this.password, '', '', '');
+        this.userService.createUser(newUser).subscribe(
+          (user: User) => {
+            if (user) {
+              alert('Registration succeed!');
+              this.router.navigate(['/user', user._id]);
+            }
+          }
+        );
+      }
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

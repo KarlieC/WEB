@@ -14,14 +14,20 @@ export class WidgetYoutubeComponent implements OnInit {
   websiteId: String;
   pageId: String;
   widgetId: String;
-  curWidget: Widget;
-  updatedWidget: Widget;
-  newName: string;
-  newText: string;
-  newUrl: string;
-  newWidth: string;
+  widget = {
+    _id: '',
+    widgetType: '',
+    pageId: '',
+    size: 0,
+    url: '',
+    width: '',
+    text: '',
+    name: ''
+  };
+  widgets: Widget[];
+
   @ViewChild('f') widgetForm: NgForm;
-  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute) { }
+  constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -30,32 +36,61 @@ export class WidgetYoutubeComponent implements OnInit {
       this.pageId = params['pid'];
       this.widgetId = params['wgid'];
     });
-    this.curWidget = this.widgetService.findWidgetById(this.widgetId);
+    this.widgetService.findWidgetById(this.widgetId).subscribe(data => {
+      this.widget = data;
+      console.log(this.widget);
+    });
   }
 
   updateWidget() {
-    this.newName = this.widgetForm.value.youtubename;
-    this.newText = this.widgetForm.value.youtybetext;
-    this.newUrl = this.widgetForm.value.youtubeurl;
-    this.newWidth = this.widgetForm.value.youtubewidth;
-    this.updatedWidget = new Widget(this.widgetId, 'YOUTUBE', this.pageId
-      , '', this.newText, this.newWidth, this.newUrl);
-    // console.log(this.newWidth);
-    this.widgetService.updateWidget(this.widgetId, this.updatedWidget);
+    if (this.widgetForm.value.youtubename) {
+      this.widget.name = this.widgetForm.value.youtubename;
+    }
+    if (this.widgetForm.value.youtubetext) {
+      this.widget.text = this.widgetForm.value.youtubetext;
+    }
+    if (this.widgetForm.value.youtubeurl) {
+      this.widget.url = this.widgetForm.value.youtubeurl;
+    }
+    if (this.widgetForm.value.youtubewidth) {
+      this.widget.width = this.widgetForm.value.youtubewidth;
+    }
+    console.log('updating... new widget name');
+    this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+      (data: any) => {
+        console.log('updated name ' + this.widget.name);
+        // this.curWidget = data;
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+        this.router.navigateByUrl(url);
+        alert('update succeed');
+      }, (error: any) => {
+        alert ('update error');
+      }
+    );
+  }
+
+  deleteWidget() {
+    this.widgetService.deleteWidget(this.widgetId).subscribe(
+      (data: any) => {
+        this.widgets = data;
+        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 
   placeholderName() {
-    return this.curWidget.name;
+    return this.widget.name;
   }
 
   placeholderText() {
-    return this.curWidget.text;
+    return this.widget.text;
   }
 
   placeholderUrl() {
-    return this.curWidget.url;
+    return this.widget.url;
   }
   placeholderWidth() {
-    return this.curWidget.width;
+    return this.widget.width;
   }
 }

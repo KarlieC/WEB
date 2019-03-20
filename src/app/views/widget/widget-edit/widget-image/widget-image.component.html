@@ -17,8 +17,8 @@
       <input name="imagename"
              type="text"
              class="form-control"
-             id = 'imagename'
-             [ngModel]="placeholderName()"
+             id='imagename'
+             placeholder="{{widget.name}}"
              ngModel
              #imagename="ngModel">
     </div>
@@ -28,7 +28,7 @@
              type="text"
              class="form-control"
              id = 'imagetext'
-             [ngModel]="placeholderText()"
+             placeholder="{{widget.text}}"
              ngModel
              #imagetext="ngModel">
     </div>
@@ -38,7 +38,7 @@
              type="text"
              class="form-control"
              id = 'imageurl'
-             [ngModel]="placeholderUrl()"
+             placeholder="{{widget.url}}"
              ngModel
              #imageurl="ngModel">
     </div>
@@ -48,23 +48,32 @@
              type="text"
              class="form-control"
              id = 'imagewidth'
-             [ngModel]="placeholderWidth()"
+             placeholder="{{widget.width}}"
              ngModel
              #imagewidth="ngModel">
     </div>
-    <div class="form-group">
-      <label for="exampleInputFile">Upload</label>
-      <input name="exampleInputFile"
-             type="file"
-             class="form-control"
-             id = 'exampleInputFile'
-             [ngModel]=""
-             ngModel
-             #exampleInputFile="ngModel">
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="exampleInputFile">Upload</label>-->
+      <!--<input name="exampleInputFile"-->
+             <!--type="file"-->
+             <!--class="form-control"-->
+             <!--id = 'exampleInputFile'-->
+             <!--[ngModel]=""-->
+             <!--ngModel-->
+             <!--#exampleInputFile="ngModel">-->
+    <!--</div>-->
 
-  <a class="btn btn-primary btn-block" href="#">Upload Image</a>
-  <a class="btn btn-danger  btn-block" href="widget-list.html">Delete</a>
+  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+    <input  name="myFile"   type="file" class="form-control"/>
+    <input  name="widgetId" value="{{widgetId}}"   style="display: none"/>
+    <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
+    <input  name="pageId" value="{{pageId}}"   style="display: none"/>
+    <input  name="userId" value="{{userId}}"   style="display: none"/>
+    <button type="submit"  onclick = "submit()" class="btn btn-block btn-primary">Upload Image</button>
+    <br/>
+  </form>
+
+  <a class="btn btn-danger  btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar fixed-bottom bg-light justify-content-end p-0">

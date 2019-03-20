@@ -52,12 +52,12 @@
              #youtubewidth="ngModel">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" href="widget-list.html">Delete</a>
+  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
 </div>
 
 <nav class="navbar fixed-bottom bg-light justify-content-end p-0">
   <div class="container-fuild">
-    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
+    <a routerLink="/user/{{userId}}" class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto">
       <i class="fas fa-user fontawsome_icon"></i>
     </a>
   </div>

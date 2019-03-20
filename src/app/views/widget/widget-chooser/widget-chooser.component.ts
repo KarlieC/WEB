@@ -29,23 +29,37 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   createWidgetHeading() {
-    const newWidget = new Widget('', 'HEADING', this.pageId, '0', 'text');
-    this.widgetId = this.widgetService.createWidget(this.pageId, newWidget);
-    this.toWidgetEdit(this.widgetId);
+    const widget = new Widget('', '', 'HEADING', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, widget).subscribe(
+      (newWidget: Widget) => {
+        console.log('newWidget');
+        const url = '/user/' + this.userId + '/website/' + this.websiteId
+          + '/page/' + this.pageId + '/widget/' + widget._id;
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 
   createWidgetImage() {
-    const newWidget = new Widget('', 'IMAGE', this.pageId, '1', 'text', '100%');
-    this.widgetId = this.widgetService.createWidget(this.pageId, newWidget);
-    this.toWidgetEdit(this.widgetId);
+    const widget = new Widget('', '', 'IMAGE', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, widget).subscribe(
+      (newWidget: Widget) => {
+        console.log(newWidget);
+        const url = '/user/' + this.userId + '/website/' + this.websiteId
+          + '/page/' + this.pageId + '/widget/' + widget._id;
+        this.router.navigateByUrl(url);
+      }
+    );
   }
   createWidgetYoutube() {
-    const newWidget = new Widget('', 'YOUTUBE', this.pageId, '1', 'text', '100%');
-    this.widgetId = this.widgetService.createWidget(this.pageId, newWidget);
-    this.toWidgetEdit(this.widgetId);
-  }
-
-  toWidgetEdit(widgetId) {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + widgetId]);
+    const widget = new Widget('', '', 'YOUTUBE', this.pageId, 0, 'text', '100%', 'url');
+    this.widgetService.createWidget(this.pageId, widget).subscribe(
+      (newWidget: Widget) => {
+        console.log(newWidget);
+        const url = '/user/' + this.userId + '/website/' + this.websiteId
+          + '/page/' + this.pageId + '/widget/' + widget._id;
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 }

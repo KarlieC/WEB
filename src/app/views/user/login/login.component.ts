@@ -21,23 +21,23 @@ export class LoginComponent implements OnInit {
   errorMsg = 'Invalid username or password !';
 
   constructor(private userService: UserService, private router: Router) {
-    this.username = 'hello world!' ;
   }
 
   login() {
+    this.errorFlag = false;
     this.username = this.myloginForm.value.username;
     this.password = this.myloginForm.value.password;
-    const user: User = this.userService.findUserByCredentials(this.username, this.password);
-    if (user) {
-      this.router.navigate(['/user', user._id]);
-    } else {
-      this.errorFlag = true;
-      // this.errorMsg = 'Login Failed.';
-    }
+    this.userService.findUserByCredentials(this.username, this.password)
+      .subscribe((user: User) => {
+        if (user) {
+          this.router.navigate(['/user', user._id]);
+        } else {
+          this.errorFlag = true;
+        }
+      });
   }
 
   ngOnInit() {
-    // this.users = UserService.getAllUser();
     console.log('login page!' + this.username);
   }
 

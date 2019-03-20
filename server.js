@@ -6,6 +6,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
+// install, load, and configure body parser module
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,4 +29,5 @@ app.set('port', port);
 const server = http.createServer(app);
 server.listen( port , () => console.log('Running on port 3200'));
 
-//require('./assignment/app')(app);
+require('./assignment/app')(app);
+// app.listen(port, ipaddress);

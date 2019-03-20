@@ -14,7 +14,7 @@ export class PageNewComponent implements OnInit {
   websiteId: string;
   name: string;
   title: string;
-  pages: Page[];
+  // pages: Page[];
   errorFlag: boolean;
   errorMsg = 'Please enter page name and title';
   @ViewChild('f') pageForm: NgForm;
@@ -26,7 +26,7 @@ export class PageNewComponent implements OnInit {
       this.userId = params['uid'];
       this.websiteId = params['wid'];
     });
-    this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
+    // this.pages = this.pageService.findPageByWebsiteId(this.websiteId);
   }
 
   createNewPage() {
@@ -36,8 +36,10 @@ export class PageNewComponent implements OnInit {
     if (!this.name || !this.title) {
       this.errorFlag = true;
     } else {
-      this.pageService.createPage(this.websiteId, new Page(undefined, this.name, this.websiteId, this.title));
-      this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
+      const newPage = new Page('', this.name, this.websiteId, this.title);
+      this.pageService.createPage(this.websiteId, newPage).subscribe(pag => {
+        this.router.navigateByUrl('/user/' + this.userId + '/website/' + this.websiteId + '/page');
+      });
     }
   }
 }
