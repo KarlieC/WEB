@@ -6,6 +6,22 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
+// var mongoose = require('mongoose');
+// var db = mongoose.connect(
+//   'mongodb://localhost:27017/webdev', { useNewUrlParser: true });
+
+// var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+var connectionString = 'mongodb://Karlie:Cky@2018@ds137596.mlab.com:37596/heroku_zvkvr8m3';
+var mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
+const client = mongoose.connect( connectionString, { useNewUrlParser: true });
+
+// //Get the default connection
+// var db = mongoose.connection;
+// //Bind connection to error event (to get notification of connection errors)
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
 // install, load, and configure body parser module
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

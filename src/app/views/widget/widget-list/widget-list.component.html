@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div *ngSwitchCase="'YOUTUBE'">
+      <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
         <div class="embed-responsive embed-responsive-16by9">
         <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}"
         class="float-right" style="position: absolute; top:0px; right:0px; z-index: 99;">
@@ -47,6 +47,42 @@
         <iframe width="640" height="360" [src]= getUrl(widget.url) allowfullscreen></iframe>
         </div>
     </div>
+
+      <div
+        *ngSwitchCase="'TEXT'">
+        <a routerLink="./" class="float-right font-black">
+          <!--<span class="fa fa-cog"></span>-->
+        </a>
+        <a routerLink="./{{widget._id}}" class="float-right font-blue">
+          <span class="fa fa-cog"></span>
+        </a>
+        <div *ngIf="widget['formatted']">
+          <quill-editor [(ngModel)]="widget['text']" name="text"></quill-editor>
+        </div>
+
+        <input
+          *ngIf="!widget.formatted && (!widget.rows || widget.rows <= 1)"
+          placeholder="{{widget.placeholder}}"
+          class="form-control"/>
+
+        <textarea
+          *ngIf="!widget.formatted && (widget.rows > 1)"
+          rows="{{widget.rows}}"
+          placeholder="{{widget.placeholder}}"
+          class="form-control">{{widget.text}}</textarea>
+      </div>
+
+      <div
+        *ngSwitchCase="'HTML'">
+        <a routerLink="./" class="float-right font-black">
+          <!--<span class="fa fa-cog"></span>-->
+        </a>
+        <a routerLink="./{{widget._id}}" class="float-right font-blue">
+          <span class="fa fa-cog"></span>
+        </a>
+        <div [innerHTML]="widget.text"></div>
+      </div>
+
   </div>
 </div>
 

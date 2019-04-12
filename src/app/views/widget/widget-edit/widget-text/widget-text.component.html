@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Widgets Edit
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" (click)="updateWidget()">
+    <i class="fas fa-check fontawsome_icon"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="textname">Name</label>
+      <input
+        name="textname"
+        type="text"
+        class="form-control"
+        id="textname"
+        [ngModel]="placeholderName()"
+        ngModel
+        #textname="ngModel"/>
+    </div>
+
+    <div class="form-group">
+      <label for="text-text">Text</label>
+      <input [(ngModel)]="widget.text"
+             type="text"
+             class="form-control"
+             id="text-text"
+             placeholder="text"
+             [ngModelOptions]="{standalone: true}"/>
+    </div>
+
+    <div class="form-group">
+      <label for="text-rows">Rows</label>
+      <input [(ngModel)]="widget.rows"
+             type="number"
+             class="form-control"
+             id="text-rows"
+             placeholder="3"
+             [ngModelOptions]="{standalone: true}"/>
+    </div>
+
+    <div class="form-group">
+      <label for="text-placeholder">Placeholder</label>
+      <input [(ngModel)]="widget.placeholder"
+             type="text"
+             class="form-control"
+             id="text-placeholder"
+             placeholder="placeholder"
+             [ngModelOptions]="{standalone: true}"/>
+    </div>
+
+    <div class="input-group">
+      <input type="text"
+             readonly
+             value="Formatted"
+             class="form-control"/>
+      <span class="input-group-addon">
+        <input [(ngModel)]="widget.formatted"
+               type="checkbox"
+               [ngModelOptions]="{standalone: true}"/>
+      </span>
+    </div>
+
+    <button class="btn btn-danger btn-block" type="button" (click)="deleteWidget()">Delete</button>
+
+
+  </form>
+</div>
+
+
+<nav class="navbar navbar-default fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <div class="ml-auto">
+      <a class="float-right" [routerLink]="['/user', userId]">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+

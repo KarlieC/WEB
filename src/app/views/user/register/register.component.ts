@@ -45,25 +45,34 @@ export class RegisterComponent implements OnInit {
       this.errorFlagPassword = true;
       return;
     }
-    this.userService.findUserByUsername(this.username).subscribe(
+    const newUser: User = new User(undefined, this.username, this.password, undefined, undefined, undefined);
+    this.userService.createUser(newUser).subscribe(
       (user: User) => {
         if (user) {
-          console.log('test user exist');
-          this.errorFlagUsername = true;
+          alert('Registration succeed!');
+          this.router.navigate(['/user', user._id]);
         }
-      },
-      (error: any) => {
-        const newUser: User = new User('', this.username, this.password, '', '', '');
-        this.userService.createUser(newUser).subscribe(
-          (user: User) => {
-            if (user) {
-              alert('Registration succeed!');
-              this.router.navigate(['/user', user._id]);
-            }
-          }
-        );
       }
     );
+    // this.userService.findUserByUsername(this.username).subscribe(
+    //     (user: User) => {
+    //       if (user) {
+    //         console.log('test user exist');
+    //         this.errorFlagUsername = true;
+    //       }
+    //     },
+    //   (error: any) => {
+    //     const newUser: User = new User('', this.username, this.password, '', '', '');
+    //     this.userService.createUser(newUser).subscribe(
+    //       (user: User) => {
+    //         if (user) {
+    //           alert('Registration succeed!');
+    //           this.router.navigate(['/user', user._id]);
+    //         }
+    //       }
+    //     );
+    //   }
+    //  );
   }
 
   ngOnInit() {}

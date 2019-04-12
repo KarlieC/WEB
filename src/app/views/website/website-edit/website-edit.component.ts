@@ -15,7 +15,7 @@ export class WebsiteEditComponent implements OnInit {
   userId: String;
   curWebsite = {
     _id: '',
-    name: '',
+    websiteName: '',
     developerId: '',
     description: ''
   };
@@ -52,13 +52,13 @@ export class WebsiteEditComponent implements OnInit {
 
   updateWebsite() {
     if (this.websiteForm.value.name) {
-      this.curWebsite.name = this.websiteForm.value.name;
+      this.curWebsite.websiteName = this.websiteForm.value.name;
     }
     if (this.websiteForm.value.description) {
       this.curWebsite.description = this.websiteForm.value.description;
     }
     this.websiteService.updateWebsite(this.userId, this.websiteId, this.curWebsite).subscribe((data: any) => {
-      console.log('updated name ' + this.curWebsite.name);
+      console.log('updated name ' + this.curWebsite.websiteName);
       alert('update succeed!');
       this.router.navigateByUrl('/user/' + this.userId + '/website');
       // this.router.navigate(['/usr/' + this.userId + '/website']);
@@ -73,7 +73,7 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   placeholderName() {
-    return this.curWebsite.name;
+    return this.curWebsite.websiteName;
   }
 
   placeholderDescription() {

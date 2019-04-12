@@ -14,7 +14,6 @@ export class PageEditComponent implements OnInit {
   websiteId: String;
   pageId: String;
   curPage = {
-    _id: '',
     name: '',
     websiteId: '',
     title: ''

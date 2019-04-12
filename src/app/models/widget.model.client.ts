@@ -8,8 +8,8 @@ export class Widget {
   url: string;
   width: string;
 
-  constructor(_id, name = 'name', widgetType, pageId, size= 1, text = 'text', width = '100%', url = 'url') {
-    this._id = _id;
+  constructor(name = 'name', widgetType, pageId, size= 1, text = 'text', width = '100%', url = 'url') {
+    // this._id = _id;
     this.name = name;
     this.widgetType = widgetType;
     this.pageId = pageId;

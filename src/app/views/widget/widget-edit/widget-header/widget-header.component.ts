@@ -73,7 +73,6 @@ export class WidgetHeaderComponent implements OnInit {
     this.widgetService.updateWidget(this.widgetId, this.curWidget).subscribe(
       (data: any) => {
         console.log('updated name ' + this.curWidget.name);
-        // this.curWidget = data;
         const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
         this.router.navigateByUrl(url);
         alert('update succeed');

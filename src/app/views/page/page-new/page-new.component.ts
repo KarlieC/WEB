@@ -36,7 +36,7 @@ export class PageNewComponent implements OnInit {
     if (!this.name || !this.title) {
       this.errorFlag = true;
     } else {
-      const newPage = new Page('', this.name, this.websiteId, this.title);
+      const newPage = new Page(this.name, this.websiteId, this.title);
       this.pageService.createPage(this.websiteId, newPage).subscribe(pag => {
         this.router.navigateByUrl('/user/' + this.userId + '/website/' + this.websiteId + '/page');
       });

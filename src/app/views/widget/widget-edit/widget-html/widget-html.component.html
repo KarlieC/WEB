@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg bg-light justify-content-start mb-3 p-0">
+  <a class="cl-text-black nav-item nav-link" routerLink="../">
+    <i class="fas fa-chevron-left"></i></a>
+  <a class="cl-text-black navbar-brand" routerLink="./">
+    Widgets Edit
+  </a>
+  <a class="navbar-link navbar-text cl-text-black cl-icon-padding ml-auto" (click)="updateWidget()">
+    <i class="fas fa-check fontawsome_icon"></i>
+  </a>
+</nav>
+
+<div class="container">
+  <form #f="ngForm">
+    <div class="form-group">
+      <label for="htmlname">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="htmlname"
+        id="htmlname"
+        [ngModel]="placeholderName()"
+        ngModel
+        #htmlname="ngModel">
+    </div>
+
+    <quill-editor [(ngModel)]="widget.text" name="Enter text"></quill-editor>
+
+    <button class="btn btn-danger btn-block" type="button" (click)="deleteWidget()">Delete</button>
+  </form>
+</div>
+
+<nav class="navbar navbar-default fixed-bottom nav-grey">
+  <div class="container-fluid">
+    <div class="ml-auto">
+      <a class="float-right" [routerLink]="['/user', userId]">
+        <i class="fas fa-user"></i>
+      </a>
+    </div>
+  </div>
+</nav>
