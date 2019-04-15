@@ -97,7 +97,7 @@ module.exports = function (app) {
     var endIndex = parseInt(req.query["end"]);
 
     array_swap(widgets, startIndex, endIndex);
-    res.sendStatus(200);
+    // res.sendStatus(200);
   }
 
   function array_swap(arr, old_index, new_index) {
