@@ -11,7 +11,7 @@ const app = express();
 //   'mongodb://localhost:27017/webdev', { useNewUrlParser: true });
 
 // var connectionString = 'mongodb://127.0.0.1:27017/webdev';
-var connectionString = 'mongodb://KarlieC:Cky@2018@ds137596.mlab.com:37596/heroku_zvkvr8m3';
+var connectionString = 'mongodb://heroku_zvkvr8m3:uvd7pvg7vqd0ct4uev5vbquvcu@ds137596.mlab.com:37596/heroku_zvkvr8m3';
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const client = mongoose.connect( connectionString, { useNewUrlParser: true });
