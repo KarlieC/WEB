@@ -5,10 +5,10 @@ module.exports = function (app) {
   var FacebookStrategy = require('passport-facebook').Strategy;
   var bcrypt = require('bcrypt-nodejs');
   var facebookConfig = {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: process.env.FACEBOOK_CALLBACK_URL
-    };
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
+  };
   // var facebookConfig = {
   //   clientID: '2149423578473950',
   //   clientSecret: '2dcb77099eac487440ed0d206edb7449',

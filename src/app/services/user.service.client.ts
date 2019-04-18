@@ -3,16 +3,18 @@ import {Injectable} from '@angular/core';
 import 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Http, RequestOptions, Response} from '@angular/http';
+// import {Http, RequestOptions, Response} from '@angular/http';
+// import {HttpModule, RequestOptions} from '@angular/http';
 import {SharedService} from './shared.service';
 import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 // injecting service into module
 @Injectable()
 
 export class UserService {
 
-  options = new RequestOptions();
+  // options = new RequestOptions();
 
   constructor(private _http: HttpClient, private sharedService: SharedService, private router: Router) {}
 
@@ -25,19 +27,19 @@ export class UserService {
   }
 
   login(username: String, password: String) {
-    this.options.withCredentials = true;
+    // this.options.withCredentials = true;
     const body = {username: username, password: password};
     return this._http.post(this.baseUrl + '/api/login', body, { withCredentials: true });
   }
 
   logOut() {
-    this.options.withCredentials = true;
+    // this.options.withCredentials = true;
     this.sharedService.user = '';
     return this._http.post(this.baseUrl + '/api/logout', '', { withCredentials: true });
   }
 
   register(username: String, password: String) {
-    this.options.withCredentials = true;
+    // this.options.withCredentials = true;
     const user = {
       username: username,
       password: password
@@ -46,19 +48,19 @@ export class UserService {
   }
 
   loggedin() {
-    this.options.withCredentials = true;
+    // this.options.withCredentials = true;
     return this._http.post(this.baseUrl + '/api/loggedin', '', { withCredentials: true });
-    // .map(
-    //       (user: any) => {
-    //         if (user !== 0) {
-    //           this.sharedService.user = user;
-    //           return true;
-    //         } else {
-    //           this.router.navigate(['/login']);
-    //           return false;
-    //         }
-    //       }
-    //     );
+      // .map(
+      //     (user: any) => {
+      //       if (user !== 0) {
+      //         this.sharedService.user = user;
+      //         return true;
+      //       } else {
+      //         this.router.navigate(['/login']);
+      //         return false;
+      //       }
+      //     }
+      //   );
   }
 
   findUserByCredentials(username: String, password: String) {
