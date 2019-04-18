@@ -23,10 +23,14 @@
              ngModel required #password="ngModel">
     </div>
 
+    <div class = "form-group">
+    <button href="/facebook/login" class="btn btn-primary btn-block">
+      <!--<span class="fa fa-facebook"></span>-->
+      Facebook
+    </button></div>
     <div class="form-group">
       <button class="btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
     </div>
-
     <div class="form-group">
       <button class="btn btn-success btn-block" routerLink="/register">Register</button>
     </div>

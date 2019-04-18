@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {UserService} from '../../../services/user.service.client';
 import {User} from '../../../models/user.model.client';
 
 import {NgForm} from '@angular/forms';
+import {SharedService} from '../../../services/shared.service';
 // import {SharedService} from '../../../services/shared.service';
 
 
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
   // newUsername: String;
   // newFirstname: String;
   // newLastname: String;
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) {
+  constructor(private userService: UserService, private router: Router,
+              private activatedRoute: ActivatedRoute, private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -44,7 +46,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  logOut() {
+    this.userService.logOut().subscribe(
+      (data: any) => this.router.navigate(['/login'])
+    );
+  }
+
   updateUser() {
+    // this.userService.updateUser(this.user).subscribe();
     if (this.profileForm.value.username) {
       this.user.username = this.profileForm.value.username;
     }
@@ -54,8 +63,8 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.value.lastname) {
       this.user.lastName = this.profileForm.value.lastname;
     }
-    if (this.profileForm.value.lastname) {
-      this.user.lastName = this.profileForm.value.lastname;
+    if (this.profileForm.value.email) {
+      this.user.email = this.profileForm.value.email;
     }
     this.activatedRoute.params.subscribe(params => {
       this.userService.updateUser(this.user).subscribe(

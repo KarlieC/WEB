@@ -23,6 +23,8 @@ export class WebsiteEditComponent implements OnInit {
   // name: String;
   // description: String;
   websites: Website[];
+  errorFlag: boolean;
+  errorMsg = 'Please enter website name.';
   @ViewChild('f') websiteForm: NgForm;
 
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) {
@@ -51,18 +53,23 @@ export class WebsiteEditComponent implements OnInit {
 
 
   updateWebsite() {
+    this.errorFlag = false;
     if (this.websiteForm.value.name) {
       this.curWebsite.websiteName = this.websiteForm.value.name;
     }
     if (this.websiteForm.value.description) {
       this.curWebsite.description = this.websiteForm.value.description;
     }
-    this.websiteService.updateWebsite(this.userId, this.websiteId, this.curWebsite).subscribe((data: any) => {
-      console.log('updated name ' + this.curWebsite.websiteName);
-      alert('update succeed!');
-      this.router.navigateByUrl('/user/' + this.userId + '/website');
-      // this.router.navigate(['/usr/' + this.userId + '/website']);
-    });
+    if (!this.curWebsite.websiteName) {
+      this.errorFlag = true;
+    } else {
+      this.websiteService.updateWebsite(this.userId, this.websiteId, this.curWebsite).subscribe((data: any) => {
+        console.log('updated name ' + this.curWebsite.websiteName);
+        alert('update succeed!');
+        this.router.navigateByUrl('/user/' + this.userId + '/website');
+        // this.router.navigate(['/usr/' + this.userId + '/website']);
+      });
+    }
   }
 
 

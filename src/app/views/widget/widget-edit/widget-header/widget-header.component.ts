@@ -30,6 +30,8 @@ export class WidgetHeaderComponent implements OnInit {
   newText: string;
   newSize: string;
   // isNewWidget: boolean;
+  errorFlag: boolean;
+  errorMsg = 'Please enter widget name.';
   @ViewChild('f') widgetForm: NgForm;
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) { }
@@ -61,6 +63,7 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   updateWidget() {
+    this.errorFlag = false;
     if (this.widgetForm.value.headingname) {
       this.curWidget.name = this.widgetForm.value.headingname;
     }
@@ -70,16 +73,20 @@ export class WidgetHeaderComponent implements OnInit {
     if (this.widgetForm.value.headingsize) {
       this.curWidget.size = this.widgetForm.value.headingsize;
     }
-    this.widgetService.updateWidget(this.widgetId, this.curWidget).subscribe(
-      (data: any) => {
-        console.log('updated name ' + this.curWidget.name);
-        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
-        this.router.navigateByUrl(url);
-        alert('update succeed');
-      }, (error: any) => {
-        alert ('update error');
-      }
-    );
+    if (!this.curWidget.name) {
+      this.errorFlag = true;
+    } else {
+      this.widgetService.updateWidget(this.widgetId, this.curWidget).subscribe(
+        (data: any) => {
+          console.log('updated name ' + this.curWidget.name);
+          const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+          this.router.navigateByUrl(url);
+          alert('update succeed');
+        }, (error: any) => {
+          alert ('update error');
+        }
+      );
+    }
   }
   deleteWidget() {
     this.widgetService.deleteWidget(this.widgetId).subscribe(

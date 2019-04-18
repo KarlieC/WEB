@@ -13,11 +13,13 @@ import { WidgetListComponent } from './views/widget/widget-list/widget-list.comp
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 // import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 const APP_ROUTES: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'user/:uid', component: ProfileComponent},
   {path: 'user/:uid/website', component: WebsiteListComponent},
   {path: 'user/:uid/website/new', component: WebsiteNewComponent},
@@ -31,9 +33,12 @@ const APP_ROUTES: Routes = [
   // {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/flickr', component: FlickrImageSearchComponent},
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
-export const Routing = RouterModule.forRoot(APP_ROUTES);
+// @NgModule({
+//   imports: [RouterModule.forRoot(APP_ROUTES)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule { }
+// export const Routing = RouterModule.forRoot(APP_ROUTES);
+
+export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES, {useHash: true});
+

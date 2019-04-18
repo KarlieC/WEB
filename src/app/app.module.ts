@@ -25,7 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {WidgetService} from './services/widget.service.client';
 import {PageService} from './services/page.service.client';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
-// import {SharedService} from './services/shared.service';
+import {SharedService} from './services/shared.service';
 import { SortableDirective } from './views/widget/widget-list/sortable.directive';
 // import {OrderByPipe} from './views/widget/widget-list/order-by-pipe.pipe';
 import {SafePipe} from './views/widget/widget-list/safe-pipe.pipe';
@@ -69,7 +69,7 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     QuillEditorModule,
     AppRoutingModule
   ],
-  providers: [UserService, WebsiteService, WidgetService, PageService],
+  providers: [UserService, WebsiteService, WidgetService, PageService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

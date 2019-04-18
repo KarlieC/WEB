@@ -25,7 +25,8 @@ export class WidgetYoutubeComponent implements OnInit {
     name: ''
   };
   widgets: Widget[];
-
+  errorFlag: boolean;
+  errorMsg = 'Please enter widget name.';
   @ViewChild('f') widgetForm: NgForm;
   constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -43,6 +44,7 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   updateWidget() {
+    this.errorFlag = false;
     if (this.widgetForm.value.youtubename) {
       this.widget.name = this.widgetForm.value.youtubename;
     }
@@ -55,18 +57,22 @@ export class WidgetYoutubeComponent implements OnInit {
     if (this.widgetForm.value.youtubewidth) {
       this.widget.width = this.widgetForm.value.youtubewidth;
     }
-    console.log('updating... new widget name');
-    this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
-      (data: any) => {
-        console.log('updated name ' + this.widget.name);
-        // this.curWidget = data;
-        const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
-        this.router.navigateByUrl(url);
-        alert('update succeed');
-      }, (error: any) => {
-        alert ('update error');
-      }
-    );
+    if (!this.widget.name) {
+      this.errorFlag = true;
+    } else {
+      console.log('updating... new widget name');
+      this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+        (data: any) => {
+          console.log('updated name ' + this.widget.name);
+          // this.curWidget = data;
+          const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+          this.router.navigateByUrl(url);
+          alert('update succeed');
+        }, (error: any) => {
+          alert ('update error');
+        }
+      );
+    }
   }
 
   deleteWidget() {

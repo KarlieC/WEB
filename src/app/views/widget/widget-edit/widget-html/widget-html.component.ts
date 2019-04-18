@@ -25,13 +25,15 @@ export class WidgetHtmlComponent implements OnInit {
   widgetId: string;
   websiteId: string;
   pageId: string;
-
+  errorFlag: boolean;
+  errorMsg = 'Please enter widget name.';
   updateMsg = 'Update information!';
   @ViewChild('f') widgetForm: NgForm;
 
   constructor(private widgetService: WidgetService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -53,29 +55,34 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   updateWidget() {
+    this.errorFlag = false;
     if (this.widgetForm.value.htmlname) {
       this.widget.name = this.widgetForm.value.htmlname;
     }
-    if (this.widgetId === undefined) {
-      this.widget.widgetType = 'HTML';
-      this.widget.pageId = this.pageId;
-      this.widgetService.createWidget(this.pageId, this.widget)
-        .subscribe(
-          (widget: Widget) => {
-            this.widget = widget;
-            console.log('update ' + this.widgetId);
-            this.router.navigate(['../'], {relativeTo: this.route});
-          }
-        );
+    if (!this.widget.name) {
+      this.errorFlag = true;
     } else {
-      this.widgetService.updateWidget(this.widgetId, this.widget)
-        .subscribe(
-          (widget: Widget) => {
-            this.widget = widget;
-            alert(this.updateMsg);
-            this.router.navigate(['../'], {relativeTo: this.route});
-          }
-        );
+      if (this.widgetId === undefined) {
+        this.widget.widgetType = 'HTML';
+        this.widget.pageId = this.pageId;
+        this.widgetService.createWidget(this.pageId, this.widget)
+          .subscribe(
+            (widget: Widget) => {
+              this.widget = widget;
+              console.log('update ' + this.widgetId);
+              this.router.navigate(['../'], {relativeTo: this.route});
+            }
+          );
+      } else {
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+          .subscribe(
+            (widget: Widget) => {
+              this.widget = widget;
+              alert(this.updateMsg);
+              this.router.navigate(['../'], {relativeTo: this.route});
+            }
+          );
+      }
     }
   }
 

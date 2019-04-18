@@ -27,6 +27,8 @@ export class WidgetImageComponent implements OnInit {
   width: ''
   };
   widgets: Widget[];
+  errorFlag: boolean;
+  errorMsg = 'Please enter widget name.';
   @ViewChild('f') widgetForm: NgForm;
 
   constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -45,6 +47,7 @@ export class WidgetImageComponent implements OnInit {
   }
 
   updateWidget() {
+    this.errorFlag = false;
     this.widgetService.findWidgetById(this.widgetId).subscribe(data => {
       this.widget = data;
       if (this.widgetForm.value.imagename) {
@@ -61,18 +64,22 @@ export class WidgetImageComponent implements OnInit {
       if (this.widgetForm.value.imagewidth) {
         this.widget.width = this.widgetForm.value.imagewidth;
       }
-      console.log('updating... new widget name');
-      this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
-        (data1: any) => {
-          console.log('image url ' + this.widget.url);
-          // this.curWidget = data;
-          const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
-          this.router.navigateByUrl(url);
-          alert('update succeed');
-        }, (error: any) => {
-          alert ('update error');
-        }
-      );
+      if (!this.widget.name) {
+        this.errorFlag = true;
+      } else {
+        console.log('updating... new widget name');
+        this.widgetService.updateWidget(this.widgetId, this.widget).subscribe(
+          (data1: any) => {
+            console.log('image url ' + this.widget.url);
+            // this.curWidget = data;
+            const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+            this.router.navigateByUrl(url);
+            alert('update succeed');
+          }, (error: any) => {
+            alert ('update error');
+          }
+        );
+      }
     });
     // console.log(this.widget.url);
   }

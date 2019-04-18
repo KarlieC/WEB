@@ -15,7 +15,7 @@ export class WebsiteNewComponent implements OnInit {
   newWeb: Website;
   websites: Website[];
   errorFlag: boolean;
-  errorMsg = 'Please enter website name and description.';
+  errorMsg = 'Please enter website name.';
   @ViewChild('f') websiteForm: NgForm;
 
   constructor(private websiteService: WebsiteService, private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -41,18 +41,22 @@ export class WebsiteNewComponent implements OnInit {
   }
 
   createWebsite() {
-    // this.errorFlag = false;
+    this.errorFlag = false;
     const websiteName = this.websiteForm.value.newName;
     const websiteDescription = this.websiteForm.value.newDescription;
-    this.newWeb = new Website(websiteName, this.userId, websiteDescription);
-    this.websiteService.createWebsite(this.userId, this.newWeb).subscribe(
-      (data: any) => {
-        this.router.navigateByUrl('/user/' + this.userId + '/website');
-        this.websiteService.findAllWebsiteForUser(this.userId).subscribe((webs: any) => {
-          this.websites = webs;
-        });
-      }
-    );
+    if (!websiteName) {
+      this.errorFlag = true;
+    } else {
+      this.newWeb = new Website(websiteName, this.userId, websiteDescription);
+      this.websiteService.createWebsite(this.userId, this.newWeb).subscribe(
+        (data: any) => {
+          this.router.navigateByUrl('/user/' + this.userId + '/website');
+          this.websiteService.findAllWebsiteForUser(this.userId).subscribe((webs: any) => {
+            this.websites = webs;
+          });
+        }
+      );
+    }
   }
 
 }

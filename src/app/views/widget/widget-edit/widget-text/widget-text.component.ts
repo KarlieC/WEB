@@ -28,7 +28,8 @@ export class WidgetTextComponent implements OnInit {
   widgetId: string;
   pageId: string;
   websiteId: string;
-  updateMsg = 'Update information!';
+  errorFlag: boolean;
+  errorMsg = 'Please enter widget name.';
   @ViewChild('f') widgetForm: NgForm;
 
   constructor(private widgetService: WidgetService,
@@ -54,20 +55,25 @@ export class WidgetTextComponent implements OnInit {
   }
 
   updateWidget() {
+    this.errorFlag = false;
     if (this.widgetForm.value.textname) {
       this.widget.name = this.widgetForm.value.textname;
     }
-    this.widgetService.updateWidget(this.widgetId, this.widget)
-      .subscribe(
-        (data: any) => {
-          const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
-          this.router.navigateByUrl(url);
-          // const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + this.widgetId;
-          alert('Update succeed');
-          // this.router.navigateByUrl(url);
-        },
-        (error: any) => console.log(error)
-      );
+    if (!this.widget.name) {
+      this.errorFlag = true;
+    } else {
+      this.widgetService.updateWidget(this.widgetId, this.widget)
+        .subscribe(
+          (data: any) => {
+            const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget';
+            this.router.navigateByUrl(url);
+            // const url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + this.widgetId;
+            alert('Update succeed');
+            // this.router.navigateByUrl(url);
+          },
+          (error: any) => console.log(error)
+        );
+    }
   }
 
   placeholderName() {

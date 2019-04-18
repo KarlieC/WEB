@@ -5,6 +5,7 @@ var userModel = mongoose.model('userModel', userSchema);
 
 // implement these functions at line 17
 userModel.createUser = createUser;
+userModel.findUserByFacebookId = findUserByFacebookId;
 userModel.findUserById = findUserById;
 userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
@@ -19,6 +20,10 @@ module.exports = userModel;
 function createUser(user) {
   console.log("created in user model " + user);
   return userModel.create(user);
+}
+
+function findUserByFacebookId(facebookId) {
+  return userModel.findOne({'facebook.id' : facebookId});
 }
 
 function findUserById(userId) {

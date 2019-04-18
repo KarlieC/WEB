@@ -1,17 +1,26 @@
 // Get the dependencies
-
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
-// var mongoose = require('mongoose');
-// var db = mongoose.connect(
-//   'mongodb://localhost:27017/webdev', { useNewUrlParser: true });
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+app.use(cookieParser());
+app.use(session({secret: 'process.env.SESSION_SECRET'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+// var mongoose = require('mongoose');
+// var db = mongoose.connect('mongodb://localhost:27017/webdev', { useNewUrlParser: true });
+
+//running locally
 // var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+//running on Heroku
 var connectionString = 'mongodb://heroku_zvkvr8m3:uvd7pvg7vqd0ct4uev5vbquvcu@ds137596.mlab.com:37596/heroku_zvkvr8m3';
+
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const client = mongoose.connect( connectionString, { useNewUrlParser: true });

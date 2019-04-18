@@ -20,6 +20,8 @@ export class PageEditComponent implements OnInit {
   };
   // name: String;
   // title: String;
+  errorFlag: boolean;
+  errorMsg = 'Please enter page name';
   pages: Page[];
   @ViewChild('f') pageForm: NgForm;
 
@@ -42,11 +44,15 @@ export class PageEditComponent implements OnInit {
   }
 
   editPage() {
+    this.errorFlag = false;
     if (this.pageForm.value.pageName) {
       this.curPage.name = this.pageForm.value.pageName;
     }
     if (this.pageForm.value.pageTitle) {
       this.curPage.title = this.pageForm.value.pageTitle;
+    }
+    if (!this.curPage.name) {
+      this.errorFlag = true;
     }
     this.pageService.updatePage(this.pageId, this.curPage).subscribe(
       (data: any ) => {
