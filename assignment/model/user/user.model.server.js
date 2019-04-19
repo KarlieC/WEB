@@ -18,7 +18,8 @@ module.exports = userModel;
 // function go here
 // server service will call these function
 function createUser(user) {
-  console.log("created in user model " + user);
+  console.log("created in user model ");
+  console.log(user);
   return userModel.create(user);
 }
 

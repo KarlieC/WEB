@@ -21,6 +21,7 @@ import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/wi
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 // import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
 // import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
+import {Routing} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {WidgetService} from './services/widget.service.client';
 import {PageService} from './services/page.service.client';
@@ -32,6 +33,7 @@ import {SafePipe} from './views/widget/widget-list/safe-pipe.pipe';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
 import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 
 
@@ -65,11 +67,12 @@ import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widg
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    Routing,
     HttpClientModule,
     QuillEditorModule,
     AppRoutingModule
   ],
-  providers: [UserService, WebsiteService, WidgetService, PageService, SharedService],
+  providers: [UserService, WebsiteService, WidgetService, PageService, SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

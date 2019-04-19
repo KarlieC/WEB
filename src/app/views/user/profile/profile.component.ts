@@ -6,7 +6,6 @@ import {User} from '../../../models/user.model.client';
 
 import {NgForm} from '@angular/forms';
 import {SharedService} from '../../../services/shared.service';
-// import {SharedService} from '../../../services/shared.service';
 
 
 @Component({
@@ -26,7 +25,7 @@ export class ProfileComponent implements OnInit {
     lastName: '',
     email: '',
   };
-  userId: String;
+  userId = '';
   // newUsername: String;
   // newFirstname: String;
   // newLastname: String;
@@ -35,15 +34,22 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.userId = params['uid'];
-      console.log('user id: ' + this.userId);
-      this.userService.findUserById(this.userId.toString())
-        .subscribe((data: any) => {
-          console.log(data);
-          this.user = data;
-        });
-    });
+    // // this.userId = this.sharedService.user._id;
+    // console.log(this.sharedService.user);
+    // this.activatedRoute.params.subscribe(params => {
+    //   // this.userId = params['uid'];
+    //   console.log(JSON.parse(this.sharedService.user));
+    //   console.log(this.sharedService.test);
+    //   // console.log('user id: ' + this.userId);
+    //   this.userService.findUserById(this.userId.toString())
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       this.user = data;
+    //     });
+    // });
+    this.activatedRoute.params.subscribe((params: any) => {this.userId = params.uid; });
+    console.log('user id: ' + this.userId);
+    this.user = this.sharedService.user;
   }
 
   logOut() {

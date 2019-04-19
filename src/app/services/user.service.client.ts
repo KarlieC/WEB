@@ -1,13 +1,15 @@
 import { User } from '../models/user.model.client';
 import {Injectable} from '@angular/core';
-import 'rxjs';
+// import 'rxjs';
+import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-// import {Http, RequestOptions, Response} from '@angular/http';
 // import {HttpModule, RequestOptions} from '@angular/http';
+// import {Http, RequestOptions, Response} from '@angular/http';
 import {SharedService} from './shared.service';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {conditionallyCreateMapObjectLiteral} from '@angular/compiler/src/render3/view/util';
 
 // injecting service into module
 @Injectable()
@@ -44,7 +46,11 @@ export class UserService {
       username: username,
       password: password
     };
-    return this._http.post(this.baseUrl + '/api/register', user, { withCredentials: true });
+    return this._http.post(this.baseUrl + '/api/register', user, { withCredentials: true }).map(
+      (data: any) => {
+        return data;
+      }
+    );
   }
 
   loggedin() {

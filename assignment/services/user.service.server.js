@@ -12,7 +12,7 @@ module.exports = function (app) {
   // var facebookConfig = {
   //   clientID: '2149423578473950',
   //   clientSecret: '2dcb77099eac487440ed0d206edb7449',
-  //   callbackURL: '/auth/facebook/callback'
+  //   callbackURL: 'auth/facebook/callback'
   // };
 
   // get
@@ -21,10 +21,16 @@ module.exports = function (app) {
   app.get("/api/user/:userId", findUserById);
   app.get("/api/user", findUserByUsername);
   app.get ('/facebook/login', passport.authenticate('facebook', { scope : 'email' }));
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/login'
-  }));
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/#/login'}),
+    function (req, res) {
+      // Successful authentication, redirect home.
+      const uid = req.user._id;
+      res.redirect('/#/user/' + uid);
+    });
+  // app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  //   successRedirect: '/#/profile',
+  //   failureRedirect: '/#/login'
+  // }));
   // post
   app.post("/api/user", createUser);
   app.post('/api/loggedin', loggedin);
@@ -107,7 +113,7 @@ module.exports = function (app) {
   }
 
   function login(req, res){
-    var user = req.user;
+    var user = req.body;
     res.json(user);
   }
 
@@ -118,8 +124,9 @@ module.exports = function (app) {
   }
 
   function register(req, res){
-    const user = req.body;
-    user['password'] = bcrypt.hashSync(user['password']);
+    var user = req.body;
+    user.password = bcrypt.hashSync(user.password);
+    // user['password'] = bcrypt.hashSync(user['password']);
     userModel.createUser(user)
       .then(
         function(user){

@@ -5,6 +5,7 @@ import {User} from '../../../models/user.model.client';
 import {UserService} from '../../../services/user.service.client';
 
 import {NgForm} from '@angular/forms';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   errorMsgUsername = 'Username exists!';
   errorMsgPassword = 'Password mis-matching!';
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {
   }
 
   register() {
@@ -47,6 +48,10 @@ export class RegisterComponent implements OnInit {
     }
     this.userService.register(this.username, this.password).subscribe(
       (data: any) => {
+        console.log(data);
+        this.sharedService.user = data;
+        this.sharedService.test = '1';
+        console.log(this.sharedService.user._id);
         this.router.navigate(['/profile']);
       },
       (err: any) => {

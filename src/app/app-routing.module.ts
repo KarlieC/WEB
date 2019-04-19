@@ -20,25 +20,25 @@ const APP_ROUTES: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'user/:uid', component: ProfileComponent},
-  {path: 'user/:uid/website', component: WebsiteListComponent},
-  {path: 'user/:uid/website/new', component: WebsiteNewComponent},
-  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
-  {path: 'user/:uid/website/:wid/page', component: PageListComponent},
-  {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
-  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
+  {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website', component: WebsiteListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/new', component: WebsiteNewComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page', component: PageListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/new', component: PageNewComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent, canActivate: [AuthGuard]},
   // {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/flickr', component: FlickrImageSearchComponent},
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(APP_ROUTES)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }
-// export const Routing = RouterModule.forRoot(APP_ROUTES);
+@NgModule({
+  imports: [RouterModule.forRoot(APP_ROUTES)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+export const Routing = RouterModule.forRoot(APP_ROUTES, {useHash: true});
 
-export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES, {useHash: true});
+// export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES, {useHash: true});
 
