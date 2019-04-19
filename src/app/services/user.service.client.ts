@@ -31,12 +31,17 @@ export class UserService {
   login(username: String, password: String) {
     // this.options.withCredentials = true;
     const body = {username: username, password: password};
-    return this._http.post(this.baseUrl + '/api/login', body, { withCredentials: true });
+    console.log('svc client ' + this._http.post(this.baseUrl + '/api/login', body, { withCredentials: true }));
+    return this._http.post(this.baseUrl + '/api/login', body, { withCredentials: true }).map(
+      (res: any) => {
+        return res;
+      }
+    );
   }
 
   logOut() {
     // this.options.withCredentials = true;
-    this.sharedService.user = '';
+    this.sharedService.user = null;
     return this._http.post(this.baseUrl + '/api/logout', '', { withCredentials: true });
   }
 

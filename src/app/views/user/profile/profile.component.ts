@@ -35,17 +35,15 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('prof-SharedSvc: ' + this.sharedService.test._id);
-    console.log('prof-sharedSvc: ' + this.sharedService.user._id);
+    // console.log('prof-SharedSvc: ' + this.sharedService.test._id);
+    // console.log('prof-sharedSvc: ' + this.sharedService.user._id);
 
-    this.userId = this.sharedService.user['_id'];
+    // this.userId = this.sharedService.user['_id'];
 
     this.activatedRoute.params.subscribe(params => {
       this.userId = params['uid'];
 
       // console.log(JSON.parse(this.sharedService.user));
-
-
       // console.log('user id: ' + this.userId);
       this.userService.findUserById(this.userId)
         .subscribe((data: any) => {

@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit {
         console.log(data);
 
         this.sharedService.user = data;
-
         this.sharedService.test = data;
 
         console.log('reg-sharedSvc: ' + this.sharedService.user._id);

@@ -9,7 +9,11 @@ module.exports = function (app) {
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK_URL
   };
-
+  // var facebookConfig = {
+  //   clientID: '2149423578473950',
+  //   clientSecret: '2dcb77099eac487440ed0d206edb7449',
+  //   callbackURL: 'auth/facebook/callback'
+  // };
 
   // get
   app.get("/api/user/hello", helloUser)
@@ -30,7 +34,7 @@ module.exports = function (app) {
   // post
   app.post("/api/user", createUser);
   app.post('/api/loggedin', loggedin);
-  app.post('/api/login',passport.authenticate('local'), login);
+  app.post('/api/login', passport.authenticate('local'), login);
   app.post('/api/logout', logout);
   app.post('/api/register', register);
   // put
@@ -53,10 +57,12 @@ module.exports = function (app) {
   passport.use('facebook', new FacebookStrategy(facebookConfig, facebookStrategy));
 
   function serializeUser(user, done) {
+    console.log('60' + user);
     done(null, user);
   }
 
   function deserializeUser(user, done) {
+    console.log('64' + user);
     userModel.findUserById(user._id)
       .then(
         function (user) {
@@ -72,6 +78,7 @@ module.exports = function (app) {
       .then(
         function (user) {
           if (user && bcrypt.compareSync(password, user['password'])) {
+            console.log('server local '+ user);
             return done(null, user);
           } else {
             return done(null, false);

@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     let auth = false;
     await this.f().then(data => {
       // const user = data.toString();
-
+      console.log('auth' + data);
       const user = data;
 
       if (user !== '0') {
