@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+// import { ActivatedRoute, Router} from '@angular/router';
 
 import {UserService} from '../../../services/user.service.client';
 import {SharedService} from '../../../services/shared.service';
 import {User} from '../../../models/user.model.client';
+import {Router} from '@angular/router';
 
 import {NgForm} from '@angular/forms';
 

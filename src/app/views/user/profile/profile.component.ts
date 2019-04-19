@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     lastName: '',
     email: '',
   };
-  userId = '';
+  userId: String;
   // newUsername: String;
   // newFirstname: String;
   // newLastname: String;
@@ -34,22 +34,28 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // // this.userId = this.sharedService.user._id;
-    // console.log(this.sharedService.user);
-    // this.activatedRoute.params.subscribe(params => {
-    //   // this.userId = params['uid'];
-    //   console.log(JSON.parse(this.sharedService.user));
-    //   console.log(this.sharedService.test);
-    //   // console.log('user id: ' + this.userId);
-    //   this.userService.findUserById(this.userId.toString())
-    //     .subscribe((data: any) => {
-    //       console.log(data);
-    //       this.user = data;
-    //     });
-    // });
-    this.activatedRoute.params.subscribe((params: any) => {this.userId = params.uid; });
-    console.log('user id: ' + this.userId);
-    this.user = this.sharedService.user;
+    this.userId = this.sharedService.user._id;
+
+    console.log(this.userId);
+    console.log('sharedSvc:' + this.sharedService.user);
+
+    this.activatedRoute.params.subscribe(params => {
+      this.userId = params['uid'];
+      console.log(this.userId);
+
+      // console.log(JSON.parse(this.sharedService.user));
+      console.log(this.sharedService.test);
+
+      // console.log('user id: ' + this.userId);
+      this.userService.findUserById(this.userId)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.user = data;
+        });
+    });
+    // this.activatedRoute.params.subscribe((params: any) => {this.userId = params.uid; });
+    // console.log('user id: ' + this.userId);
+    // this.user = this.sharedService.user;
   }
 
   logOut() {
