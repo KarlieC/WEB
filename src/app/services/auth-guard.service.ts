@@ -16,9 +16,15 @@ export class AuthGuard implements CanActivate {
   async canActivate() {
     let auth = false;
     await this.f().then(data => {
-      const user = data.toString();
+      // const user = data.toString();
+
+      const user = data;
+
       if (user !== '0') {
         this.sharedService.user = user;
+
+        console.log('auth-sharedSvc: ' + this.sharedService.user._id);
+
         auth = true;
       } else {
         this.router.navigate(['/login']);
@@ -32,6 +38,7 @@ export class AuthGuard implements CanActivate {
 // @Injectable()
 // export class AuthGuard implements CanActivate {
 //   constructor(private userService: UserService, private router: Router) {}
+//
 //   canActivate() {
 //     return this.userService.loggedin();
 //   }

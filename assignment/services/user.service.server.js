@@ -9,11 +9,7 @@ module.exports = function (app) {
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK_URL
   };
-  // var facebookConfig = {
-  //   clientID: '2149423578473950',
-  //   clientSecret: '2dcb77099eac487440ed0d206edb7449',
-  //   callbackURL: 'auth/facebook/callback'
-  // };
+
 
   // get
   app.get("/api/user/hello", helloUser)

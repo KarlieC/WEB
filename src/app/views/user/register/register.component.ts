@@ -49,9 +49,12 @@ export class RegisterComponent implements OnInit {
     this.userService.register(this.username, this.password).subscribe(
       (data: any) => {
         console.log(data);
+
         this.sharedService.user = data;
-        this.sharedService.test = '1';
-        console.log(this.sharedService.user._id);
+
+        this.sharedService.test = data;
+
+        console.log('reg-sharedSvc: ' + this.sharedService.user._id);
 
         this.router.navigate(['/user', this.sharedService.user._id]);
       },
