@@ -54,8 +54,8 @@ export class RegisterComponent implements OnInit {
         this.sharedService.test = data;
 
         console.log('reg-sharedSvc: ' + this.sharedService.user._id);
-
-        this.router.navigate(['/user', this.sharedService.user._id]);
+        this.router.navigate(['/profile']);
+        // this.router.navigate(['/user', this.sharedService.user._id]);
       },
       (err: any) => {
         this.errorFlagUsername = true;

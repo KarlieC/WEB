@@ -41,15 +41,16 @@ export class ProfileComponent implements OnInit {
     // this.userId = this.sharedService.user['_id'];
 
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params['uid'];
-
+      // this.userId = params['uid'];
+      this.userId = this.sharedService.user['_id'];
+      this.user = this.sharedService.user;
       // console.log(JSON.parse(this.sharedService.user));
       // console.log('user id: ' + this.userId);
-      this.userService.findUserById(this.userId)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.user = data;
-        });
+      // this.userService.findUserById(this.userId)
+      //   .subscribe((data: any) => {
+      //     console.log(data);
+      //     this.user = data;
+      //   });
     });
     // this.activatedRoute.params.subscribe((params: any) => {this.userId = params.uid; });
     // console.log('user id: ' + this.userId);

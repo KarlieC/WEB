@@ -35,9 +35,10 @@ export class LoginComponent implements OnInit {
     // call client side to sent login information
     this.userService.login(this.username, this.password).subscribe((user: any) => {
       this.sharedService.user = user;
-      console.log('login user: ' + user); // [object]
-      console.log('login id: ' + user._id); // undefined
-      this.router.navigate(['/user', user._id]);
+      // console.log('login user: ' + user); // [object]
+      // console.log('login id: ' + user._id); // undefined
+      this.router.navigate(['/profile']);
+      // this.router.navigate(['/user', user._id]);
     }, (error: any) => {
       this.errorFlag = true;
       console.log(error);
